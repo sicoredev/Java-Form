@@ -261,9 +261,6 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Password"/>
               </Properties>
-              <AccessibilityProperties>
-                <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="Password"/>
-              </AccessibilityProperties>
             </Component>
             <Component class="javax.swing.JPasswordField" name="t_pass">
               <Properties>

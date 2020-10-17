@@ -27,4 +27,9 @@ public class connectionDb {
         }
         return con;
     }
+    //test-connection
+//        public static void main(String[] args) throws SQLException {
+//        System.out.println(Con());
+//    }
+    
 }
