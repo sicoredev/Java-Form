@@ -16,7 +16,12 @@ import helpers.connectionDb;
  */
 public class login extends javax.swing.JFrame {
     int x = 0;
-
+    
+    private void clear() {
+        t_uname.setText("");
+        t_pass.setText("");
+    }
+    
     private void login() {
         String nama = t_uname.getText();
         String pass = String.valueOf(t_pass.getPassword());
@@ -43,6 +48,7 @@ public class login extends javax.swing.JFrame {
                     System.exit(0);
                 }
             }
+            clear();
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
