@@ -4,16 +4,50 @@
  * and open the template in the editor.
  */
 package views;
+
 import java.sql.Statement;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
+import helpers.connectionDb;
 
 /**
  *
  * @author Zeref
  */
-
 public class login extends javax.swing.JFrame {
+    int x = 0;
+
+    private void login() {
+        String nama = t_uname.getText();
+        String pass = String.valueOf(t_pass.getPassword());
+        if (nama.isEmpty() || pass.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Please fill all Input");
+            return;
+        }
+        String sql = "select * from tb_user where username ='" + nama + "' and password =md5('" + pass + "')";
+        try {
+            Statement st = connectionDb.Con().createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            if (rs.next()) {
+                if (nama.equals(rs.getString("username"))) {
+                    JOptionPane.showMessageDialog(null, "Login berhasil ");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Login gagal! Cek username dan Password");
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Login gagal! Cek username dan Password");
+                t_uname.requestFocus();
+                x = x + 1;
+                if (x == 3) {
+                    JOptionPane.showMessageDialog(null, "Anda 3x gagal. Sistem akan menutup");
+                    System.exit(0);
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     /**
      * Creates new form login
      */
@@ -191,8 +225,6 @@ public class login extends javax.swing.JFrame {
                 .addContainerGap(86, Short.MAX_VALUE))
         );
 
-        jLabel2.getAccessibleContext().setAccessibleName("Password");
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -228,7 +260,7 @@ public class login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginActionPerformed
-      // TODO add your handling code here:
+        login();      // TODO add your handling code here:
     }//GEN-LAST:event_loginActionPerformed
 
     private void jLabel3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MousePressed
